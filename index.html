@@ -17,6 +17,9 @@
   
   <body>
     
+    <input type="text" class="searchbox" id="search" onkeydown="search(this)" placeholder="search for any artist">
+    
+    
     <h1 id="artist"></h1>
     <p id="topsong0"></p>
     <p id="topsong1"></p>
@@ -29,11 +32,13 @@
     <p id="topsong8"></p>
     <p id="topsong9"></p>
     
+
      <script type="text/javascript">
       (function() {
-        getArtistTop10("Kendrick Lamar");
+        getArtistByName("The Kid Laroi");
       })();
     </script>  
+    
     
   </body>
 </html>
