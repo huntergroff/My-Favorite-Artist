@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://glitch.com/favicon.ico" />
-
+    <link rel="stylesheet" href="https://use.typekit.net/ttv1fse.css" />
     <title>Genius API Music App</title>
 
     <!-- Import the webpage's stylesheet -->
@@ -13,32 +13,19 @@
     <!-- Import the webpage's javascript file -->
     <script src="/script.js"></script>
   </head>
-  
-  
-  <body>
-    
-    <input type="text" class="searchbox" id="search" onkeydown="search(this)" placeholder="search for any artist">
-    
-    
-    <h1 id="artist"></h1>
-    <p id="topsong0"></p>
-    <p id="topsong1"></p>
-    <p id="topsong2"></p>
-    <p id="topsong3"></p>
-    <p id="topsong4"></p>
-    <p id="topsong5"></p>
-    <p id="topsong6"></p>
-    <p id="topsong7"></p>
-    <p id="topsong8"></p>
-    <p id="topsong9"></p>
-    
 
-     <script type="text/javascript">
-      (function() {
-        getArtistByName("The Kid Laroi");
-      })();
-    </script>  
-    
-    
+  <body>
+    <div id="maindisplay">
+      <h1 class="headingtext" id="maintitle">MY FAVORITE ARTIST</h1>
+      <div id="inputholder">
+        <input
+          type="text"
+          class="searchbox"
+          id="mainpagesearch"
+          onkeydown="search(this)"
+          placeholder="search for any artist"
+        />
+      </div>
+    </div>
   </body>
 </html>

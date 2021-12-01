@@ -3,6 +3,8 @@ async function search(text) {
     const artist = await getArtistByName(text.value);
     getArtistTop10(text.value);
     text.value = "";
+    const mainDisplay = document.getElementById("maindisplay");
+    mainDisplay.display = "none";
     }
 }
 
@@ -66,21 +68,34 @@ async function getArtistSongsById(id) {
 //SPECIFIC FUNCTIONS
 
 //Gets and displays top 10 songs by named artist
-async function getArtistTop10(name) {
+async function getArtistTop10(name) { 
+  
+
+  
   const artist = await getArtistByName(name);
   const topsongs = await getArtistSongsById(artist.response.artist.id);
   const artistName = artist.response.artist.name;
+   
   
-  const artistBox = document.getElementById("artist");
-  artistBox.innerHTML = artistName + " Top 10"
   
   for (let i = 0; i < 10; i++) {
-    const id = "topsong" + i;
-    const topsong = topsongs.response.songs[i].title;
-    const songBox = document.getElementById(id);
-    songBox.innerHTML = (i+1) +": "+ topsong;
+    const titleid = "songtitle" + i;
+    const linkid = "songlink" + i;
+    const pictureid = "songpicture" + i;
+    const topsong = topsongs.response.songs[i].title_with_featured;
+    const lyric = topsongs.response.songs[i].url;
+    const songpic = topsongs.response.songs[i].song_art_image_url;
+    
+    const songBox = document.getElementById(titleid);
+    songBox.innerHTML = topsong;
+    
+    const linkBox = document.getElementById(linkid);
+    linkBox.href = lyric;
+    
+    const picBox = document.getElementById(pictureid);
+    picBox.src = songpic;
+    
   }
-  
 }
 
 //Gets an artist by their name, rather than by ID

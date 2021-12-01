@@ -1,6 +1,7 @@
 # Hello website!
 
 [Our Website](https://genius-music-app.glitch.me)
+[Testing Layout](https://genius-music-app.glitch.me/layout.html)
 
 ## Basic Ideas
 
