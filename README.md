@@ -1,13 +1,18 @@
 # Hello website!
 
 [Our Website](https://genius-music-app.glitch.me)
+
 [Testing Layout](https://genius-music-app.glitch.me/layout.html)
 
-## Basic Ideas
+[Deezer API](https://rapidapi.com/deezerdevs/api/deezer-1/)
 
-Artist dashboard, featuring information about the artist.
+## TO DO:
 
-One element is a top 10 songs list -- songs can be clicked on to expand to a little panel about them
+- replace this readme with description and whatnot
+- replace recent searches with "suggested searches" and implement
+- make 3-picture clickable slideshow
+- fix description box
+- comment javascript
 
 ## WHAT WE HAVE
 ARTIST

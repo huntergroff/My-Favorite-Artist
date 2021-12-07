@@ -31,6 +31,7 @@ a:visited {
 
 #maindisplay {
   padding-top: 200px;
+  display: block;
 }
 
 #maintitle {
@@ -48,6 +49,7 @@ a:visited {
 
 #container {
   justify-content: center;
+  visibility: hidden;
 }
 
 #mainpagesearch {
@@ -106,6 +108,7 @@ a:visited {
   justify-content: center;
   position: fixed;
   background-color: var(--backgroundcolor);
+  visibility: hidden;
 }
 
 #navbar {
@@ -186,36 +189,54 @@ a:visited {
 
 #descriptionsongsbox {
   margin: 0;
-  /*background-color: blue;*/
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 1000px;
-  height: 365px;
+  min-width: 700px;
+  height: 800px;
   padding-bottom: 50px;
   padding-right: 50px;
 }
 
 #descriptionbox {
   background-color: var(--boxcolor);
-  width: 650px;
+  width: 700px;
+  height: 340px;
+  margin-bottom: 50px;
+  padding: 25px;
   border-radius: var(--borderradius);
+  overflow-y: scroll;
 }
 
-#topsongsbox {
+#songandalbumsbox {
+  display: flex;
+  justify-content: flex-start;
+  height: 365px;
+  margin-bottom: 50px;
+}
+
+#topsongsbox, #topalbumsbox {
   background-color: var(--boxcolor);
   width: 300px;
+  min-width: 300px;
   border-radius: var(--borderradius);
   padding-top: 20px;
   padding-bottom: 20px;
   overflow-y: scroll;
 }
 
-#topsongs {
+#topalbumsbox {
+  margin-left: 50px;
+}
+
+#topsongs, #topalbums {
   font-size: 30px;
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
   .song {
     display: flex;
     align-items: flex-start;
@@ -228,6 +249,7 @@ a:visited {
   
   .songpicture {
     height: var(--songboxsize);
+    width: var(--songboxsize);
     margin-right: 10px;
     margin-left: 10px;
   }
@@ -238,11 +260,20 @@ a:hover .song{
   color: var(--backgroundcolor);
 }
 
-
 /* width */
 #topsongsbox::-webkit-scrollbar {
   display: none;
 }
+
+#topalbumsbox::-webkit-scrollbar {
+  display: none;
+}
+
+#descriptionbox::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 
 @media only screen and (max-width: 1350px) {
@@ -299,20 +330,19 @@ a:hover .song{
   
   #nicknames {
     line-height: 50px;
+    font-size: 23px;
   }
   
   #descriptionsongsbox {
     width: auto;
-    min-width: 920px;
   }
   
   #descriptionbox {
+    width: auto;
+    max-width: 850px;
     margin-right: 50px;
   }
   
-  #topsongsbox {
-    min-width: 200px;
-  }
 }
 
 
@@ -344,7 +374,7 @@ a:hover .song{
   #recentsearches {
     position: relative;
     bottom: 28px;
-    left: 310px;
+    left: 330px;
   }
   
 }

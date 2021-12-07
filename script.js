@@ -4,7 +4,14 @@ async function search(text) {
     getArtistTop10(text.value);
     text.value = "";
     const mainDisplay = document.getElementById("maindisplay");
-    mainDisplay.display = "none";
+    mainDisplay.style.display = "none";
+    const navBar = document.getElementById("navbarholder");
+    navBar.style.visibility = "visible";
+    const container = document.getElementById("container");
+    container.style.visibility = "visible";
+    const nicknamebox = document.getElementById("nicknames");
+    nicknamebox.innerHTML = "AKA: ";
+    deezerRenderAlbumsForArtist(artist.response.artist.name);
     }
 }
 
@@ -65,17 +72,194 @@ async function getArtistSongsById(id) {
   return results;
 }
 
+
+
+//DEEZER GETTERS
+async function deezerGetSearch(name) {
+  //const urlName = name.replaceAll(" ", "%20");
+  const metadataResponse = fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${name}`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+		"x-rapidapi-key": "4f81c53901msh04da30b18bd0b3ap11116djsn42a17ccf6801"
+	}
+})
+  const results = await metadataResponse;
+  const results2 = await results.json();
+  //console.log(results2);
+  return results2;
+}
+
+
+async function deezerGetArtistByName(name) {
+  const data = await deezerGetSearch(name);
+  
+  const array = [];
+  const limit = Math.max(data.data.length, 25);
+  for (let i=0; i < limit; i++) {
+    const result = data.data[i].artist.id;
+    array.push(result);
+  }
+  const mostCommonId = modeString(array);
+  const artist = await deezerGetArtistById(mostCommonId);
+  console.log(artist);
+  return artist;
+}
+
+
+//use this by searching with a name you know is good
+async function deezerRenderAlbumsForArtist(name) {
+  const artist = await deezerGetArtistByName(name);
+  const artistId = artist.id;
+  const artistname = artist.name;
+  const searchData = await deezerGetSearch(artistname);
+  console.log(searchData);
+  const mapOfAlbums = new Map();
+  const limit = Math.max(searchData.data.length, 25);
+  for (let i=0; i < limit; i++) {
+    const a = searchData.data[i].artist.id;
+    if (a == artistId) {
+      mapOfAlbums.set(searchData.data[i].album.title, searchData.data[i].album);
+    }
+  }
+  console.log(mapOfAlbums);
+  
+  const albumbox = document.getElementById("topalbumsbox");
+  albumbox.innerHTML = "";
+  
+  const relatedalbumstext = document.createElement("p");
+  relatedalbumstext.id = "topalbums";
+  relatedalbumstext.classList.add('headingtext');
+  relatedalbumstext.innerHTML = "popular albums";
+  albumbox.appendChild(relatedalbumstext);
+  
+  for (let value of mapOfAlbums.values()) {
+    const album = document.createElement("div");
+    album.classList.add('song');
+    albumbox.appendChild(album);
+  
+    const albumpicturebox = document.createElement("img");
+    albumpicturebox.classList.add('songpicture');
+    albumpicturebox.src = value.cover_small;
+    album.appendChild(albumpicturebox);
+    
+    const albumtitle = document.createElement("p");
+    albumtitle.classList.add('regulartext');
+    albumtitle.innerHTML = value.title;
+    album.appendChild(albumtitle);
+  }
+  
+  return mapOfAlbums;  
+}
+
+
+async function deezerGetArtistById(id) {
+  const metadataResponse = fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${id}`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+		"x-rapidapi-key": "4f81c53901msh04da30b18bd0b3ap11116djsn42a17ccf6801"
+	}
+})
+  const results = await metadataResponse;
+  const results2 = await results.json();
+  return results2;
+}
+
+
+
+
+
+
 //SPECIFIC FUNCTIONS
 
 //Gets and displays top 10 songs by named artist
 async function getArtistTop10(name) { 
   
-
   
   const artist = await getArtistByName(name);
   const topsongs = await getArtistSongsById(artist.response.artist.id);
   const artistName = artist.response.artist.name;
+  const alias = artist.response.artist.alternate_names;
+  const facebook = artist.response.artist.facebook_name;
+  const insta = artist.response.artist.instagram_name;
+  const twitter = artist.response.artist.twitter_name;
+  const genius = artist.response.artist.url;
+  const headerpic = artist.response.artist.image_url;
+  const description = artist.response.artist.description.dom.children
+  
+  const deezerArtist = await deezerGetArtistByName(artistName);
+  
+  const nameBox = document.getElementById("artistname");
+  nameBox.innerHTML = artistName;
+  
+  const limit = Math.min(alias.length, 4);
+  
+  const nicknameBox = document.getElementById("nicknames");
+  for (let i = 0; i < limit; i++) {
+      const aliasName = alias[i];
+      nicknameBox.innerHTML += aliasName;
+    
+    if (i < limit-1) {
+      nicknameBox.innerHTML += ", ";
+    }
+  }
+  
+  
+  //const descriptionBox = document.getElementById("descriptionbox");
+  //for (let i = 0; i < description.length; i++) {
+    //const descriptiontext = description[i].children;
+    //if (i % 2 == 0) {
+      //for (let j = 0; j < descriptiontext.length; j++) {
+        //const words = descriptiontext[j];
+
+        //if (j % 2 == 0) {
+          //descriptionBox.innerHTML += words + " ";
+        //} else {
+          //const innerword = words.children;
+          //for (let k = 0; k < words.length; k++)
+            //descriptionBox.innerHTML += innerword[k];
+        //}
+      //}
+    //} else {
+      //descriptionBox.innerHTML += description[i];
+ //   }
+ // }
    
+  console.log(deezerArtist);
+  
+  const facebooklinkBox = document.getElementById("facebooklink");
+  facebooklinkBox.href = "https://www.facebook.com/"+facebook;
+  
+  const facebookBox = document.getElementById("facebook");
+  facebookBox.innerHTML = facebook;
+  
+  const instalinkBox = document.getElementById("instagramlink");
+  instalinkBox.href = "https://www.instagram.com/"+insta+"/";
+  
+  const instaBox = document.getElementById("instagram");
+  instaBox.innerHTML = insta;
+  
+  const twitterlinkBox = document.getElementById("twitterlink");
+  twitterlinkBox.href = "https://twitter.com/"+twitter;
+  
+  const deezerLinkBox = document.getElementById("deezerlink");
+  deezerLinkBox.href = deezerArtist.link;
+  
+  const twitterBox = document.getElementById("twitter");
+  twitterBox.innerHTML = twitter;
+  
+  const geniuslinkBox = document.getElementById("geniuslink");
+  geniuslinkBox.href = genius;
+  
+  const geniusBox = document.getElementById("genius");
+  geniusBox.innerHTML = artistName + "'s Genius Page";
+  
+  const deezerBox = document.getElementById("deezer");
+  deezerBox.innerHTML = artistName + "'s Deezer Page";
+  
+  const imageBox = document.getElementById("picture");
+  imageBox.src = headerpic;
   
   
   for (let i = 0; i < 10; i++) {
@@ -87,6 +271,7 @@ async function getArtistTop10(name) {
     const songpic = topsongs.response.songs[i].song_art_image_url;
     
     const songBox = document.getElementById(titleid);
+    console.log(topsong);
     songBox.innerHTML = topsong;
     
     const linkBox = document.getElementById(linkid);
@@ -137,4 +322,14 @@ function modeString(array) {
     }
   }
   return maxEl;
+}
+
+function ArtistDescription(artist) {
+  
+  if(artist=1){
+    
+  }
+  else{
+    
+  }
 }
