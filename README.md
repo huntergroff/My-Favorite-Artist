@@ -1,6 +1,6 @@
 # Hello website!
 
-[Our Website](https://genius-music-app.glitch.me)
+[Our Website](https://my-favorite-artist.glitch.me)
 
 [Testing Layout](https://genius-music-app.glitch.me/layout.html)
 
@@ -14,12 +14,15 @@
 - delete layout.html
 
 VISH
+- video
 - comment javascript
 - replace readme with paragraph
 
 HUNTER
 - suggested searches
 - github stuff
+- reformat all code
+
 
 ## WHAT WE HAVE
 ARTIST

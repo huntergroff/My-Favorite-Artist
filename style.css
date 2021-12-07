@@ -13,6 +13,8 @@ body {
   color: var(--textcolor);
   font-family: futura-pt, sans-serif;
   margin: 0;
+  height: 1000px;
+  overflow: hidden;
 }
 
 p {
@@ -25,7 +27,7 @@ a:link {
 }
 
 a:visited {
-  text-decoration:none;
+  text-decoration: none;
   color: var(--textcolor);
 }
 
@@ -101,7 +103,6 @@ a:visited {
   margin-right: 10px;
 }
 
-
 .searchbox:focus,
 .searchbox:hover {
   outline: none;
@@ -158,7 +159,6 @@ a:visited {
   transition: all 0.2s ease-in;
 }
 
-
 #artistpicture:hover {
   border: 4px solid var(--highlightcolor);
   transition: all 0.2s ease-in;
@@ -167,7 +167,6 @@ a:visited {
 #picture {
   height: 100%;
 }
-
 
 #artistsociallinks {
   background-color: var(--boxcolor);
@@ -201,7 +200,6 @@ a:visited {
   margin-right: 8px;
   margin-left: 20px;
 }
-
 
 #namedsecriptionsongsbox {
   /*background-color: yellow;*/
@@ -244,7 +242,8 @@ a:visited {
   margin-bottom: 50px;
 }
 
-#topsongsbox, #topalbumsbox {
+#topsongsbox,
+#topalbumsbox {
   background-color: var(--boxcolor);
   width: 300px;
   min-width: 300px;
@@ -258,30 +257,31 @@ a:visited {
   margin-left: 50px;
 }
 
-#topsongs, #topalbums {
+#topsongs,
+#topalbums {
   font-size: 30px;
   margin-left: 10px;
   margin-bottom: 10px;
 }
 
-  .song {
-    display: flex;
-    align-items: flex-start;
-    min-height: var(--songboxsize);
-    height: auto;
-    width: 100%;
-    margin-bottom: 10px;
-    transition: all 0.2s ease-in;
-  }
-  
-  .songpicture {
-    height: var(--songboxsize);
-    width: var(--songboxsize);
-    margin-right: 10px;
-    margin-left: 10px;
-  }
+.song {
+  display: flex;
+  align-items: flex-start;
+  min-height: var(--songboxsize);
+  height: auto;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in;
+}
 
-a:hover .song{
+.songpicture {
+  height: var(--songboxsize);
+  width: var(--songboxsize);
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+a:hover .song {
   background-color: var(--highlightcolor);
   transition: all 0.2s ease-in;
   color: var(--backgroundcolor);
@@ -300,11 +300,7 @@ a:hover .song{
   display: none;
 }
 
-
-
-
 @media only screen and (max-width: 1350px) {
-  
   #container {
     flex-direction: column;
     margin-left: 50px;
@@ -354,16 +350,16 @@ a:hover .song{
     padding-top: 40px;
     line-height: 90px;
   }
-  
+
   #nicknames {
     line-height: 50px;
     font-size: 23px;
   }
-  
+
   #descriptionsongsbox {
     width: auto;
   }
-  
+
   #descriptionbox {
     width: auto;
     max-width: 850px;
@@ -371,48 +367,43 @@ a:hover .song{
   }
 }
 
-
-
-
-
 @media only screen and (max-width: 920px) {
   #navbar {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
   }
-  
+
   :root {
     --navbarsize: 130px;
   }
-  
+
   .mfatext {
-  position: relative;
+    position: relative;
     top: 7px;
-}
-  
+  }
+
   #search {
     position: relative;
     right: 8px;
     top: 6px;
   }
-  
+
   #topsearches {
     position: relative;
     bottom: 30px;
     left: 430px;
   }
-  
+
   #dropdown {
     position: relative;
     bottom: 65px;
     left: 570px;
   }
-  
 }
 
-
-#dropdown, #dropdown2 {
+#dropdown,
+#dropdown2 {
   background-color: var(--boxcolor);
   width: 120px;
   height: 240px;
@@ -437,11 +428,12 @@ button {
   border: none;
   font-size: 17px;
   border-radius: 20px;
-  padding-left, padding-right: 5px;
+  padding-left,padding-right: 5px;
   transition: all 0.2s ease-in;
 }
 
-.topsearchdropdown, .topsearchdropdown2 {
+.topsearchdropdown,
+.topsearchdropdown2 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
