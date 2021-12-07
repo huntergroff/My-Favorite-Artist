@@ -2,10 +2,8 @@ var picList;
 
 
 async function search(text) {
-  if(event.key === 'Enter') {
-    const artist = await getArtistByName(text.value);
-    getArtistTop10(text.value);
-    text.value = "";
+    const artist = await getArtistByName(text);
+    getArtistTop10(text);
     const mainDisplay = document.getElementById("maindisplay");
     mainDisplay.style.display = "none";
     const navBar = document.getElementById("navbarholder");
@@ -15,8 +13,15 @@ async function search(text) {
     const nicknamebox = document.getElementById("nicknames");
     nicknamebox.innerHTML = "AKA: ";
     deezerRenderAlbumsForArtist(artist.response.artist.name);
-    }
 }
+
+function getSearchBarText(bar) {
+  if (event.key === 'Enter') {
+    search(bar.value);
+    bar.value = "";
+  }
+}
+
 
 
 //Search Endpoint getter.
@@ -185,6 +190,23 @@ function dropdown() {
   }
 }
 
+function dropdown2() {
+  const menu = document.getElementById("dropdown2");
+  if (menu.style.display == "none") {
+    menu.style.display = "inline-block"
+  } else {
+    menu.style.display = "none";
+  }
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('#topsearches')) {
+    const menu = document.getElementById("dropdown");
+    menu.style.display = "none";
+  }
+}
+
 //Gets and displays top 10 songs by named artist
 async function getArtistTop10(name) { 
   
@@ -262,7 +284,6 @@ async function getArtistTop10(name) {
   const deezerBox = document.getElementById("deezer");
   deezerBox.innerHTML = artistName;
   
-  PicSwitch(artist,deezerArtist)
   
   
   for (let i = 0; i < 10; i++) {

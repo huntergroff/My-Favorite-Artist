@@ -10,6 +10,8 @@
 
 - replace this readme with description and whatnot
 - replace recent searches with "suggested searches" and implement
+- change name to my-favorite-artist
+- delete layout.html
 
 VISH
 - comment javascript
