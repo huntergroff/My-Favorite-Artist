@@ -1,3 +1,6 @@
+var picList;
+
+
 async function search(text) {
   if(event.key === 'Enter') {
     const artist = await getArtistByName(text.value);
@@ -154,7 +157,7 @@ async function deezerRenderAlbumsForArtist(name) {
 
 
 async function deezerGetArtistById(id) {
-  const metadataResponse = fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${id}`, {
+  const metadataResponse = await fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${id}`, {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
@@ -173,6 +176,15 @@ async function deezerGetArtistById(id) {
 
 //SPECIFIC FUNCTIONS
 
+function dropdown() {
+  const menu = document.getElementById("dropdown");
+  if (menu.style.display == "none") {
+    menu.style.display = "inline-block"
+  } else {
+    menu.style.display = "none";
+  }
+}
+
 //Gets and displays top 10 songs by named artist
 async function getArtistTop10(name) { 
   
@@ -185,11 +197,19 @@ async function getArtistTop10(name) {
   const insta = artist.response.artist.instagram_name;
   const twitter = artist.response.artist.twitter_name;
   const genius = artist.response.artist.url;
-  const headerpic = artist.response.artist.image_url;
   const description = artist.response.artist.description.dom.children
-  
+  const profilepic = artist.response.artist.image_url;
   const deezerArtist = await deezerGetArtistByName(artistName);
   
+  const profpicBox = document.getElementById("picture");
+  profpicBox.src = profilepic;
+  
+  picList = [
+    artist.response.artist.image_url,
+    artist.response.artist.header_image_url,
+    deezerArtist.picture_medium
+  ]; 
+
   const nameBox = document.getElementById("artistname");
   nameBox.innerHTML = artistName;
   
@@ -205,26 +225,10 @@ async function getArtistTop10(name) {
     }
   }
   
+  const descriptionBox = document.getElementById("descriptionbox");
+  descriptionBox.innerHTML = "";
+  ArtistDescription(description)
   
-  //const descriptionBox = document.getElementById("descriptionbox");
-  //for (let i = 0; i < description.length; i++) {
-    //const descriptiontext = description[i].children;
-    //if (i % 2 == 0) {
-      //for (let j = 0; j < descriptiontext.length; j++) {
-        //const words = descriptiontext[j];
-
-        //if (j % 2 == 0) {
-          //descriptionBox.innerHTML += words + " ";
-        //} else {
-          //const innerword = words.children;
-          //for (let k = 0; k < words.length; k++)
-            //descriptionBox.innerHTML += innerword[k];
-        //}
-      //}
-    //} else {
-      //descriptionBox.innerHTML += description[i];
- //   }
- // }
    
   console.log(deezerArtist);
   
@@ -253,13 +257,12 @@ async function getArtistTop10(name) {
   geniuslinkBox.href = genius;
   
   const geniusBox = document.getElementById("genius");
-  geniusBox.innerHTML = artistName + "'s Genius Page";
+  geniusBox.innerHTML = artistName;
   
   const deezerBox = document.getElementById("deezer");
-  deezerBox.innerHTML = artistName + "'s Deezer Page";
+  deezerBox.innerHTML = artistName;
   
-  const imageBox = document.getElementById("picture");
-  imageBox.src = headerpic;
+  PicSwitch(artist,deezerArtist)
   
   
   for (let i = 0; i < 10; i++) {
@@ -324,12 +327,33 @@ function modeString(array) {
   return maxEl;
 }
 
-function ArtistDescription(artist) {
-  
-  if(artist=1){
-    
+function ArtistDescription(descriptiontext) {
+  const descriptionBox = document.getElementById("descriptionbox");
+  for (let i = 0; i < descriptiontext.length; i++) {
+    if (descriptiontext[i].children) {
+      ArtistDescription(descriptiontext[i].children)
+    }
+    else {
+      if (descriptiontext[i] === "") {
+        descriptionBox.innerHTML += "<br /><br />";
+      }
+      else {
+        descriptionBox.innerHTML += descriptiontext[i];
+      }
+    }
   }
-  else{
-    
+}
+
+function PicSwitch() {
+  console.log("hello");
+  const profpicBox = document.getElementById("picture");
+  if (profpicBox.src == picList[0]){
+    profpicBox.src = picList[1]
+  }
+  else if (profpicBox.src == picList[1]){
+    profpicBox.src = picList[2]
+  }
+  else if (profpicBox.src == picList[2]){
+    profpicBox.src = picList[0]
   }
 }

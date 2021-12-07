@@ -10,9 +10,14 @@
 
 - replace this readme with description and whatnot
 - replace recent searches with "suggested searches" and implement
-- make 3-picture clickable slideshow
-- fix description box
+
+VISH
 - comment javascript
+- replace readme with paragraph
+
+HUNTER
+- suggested searches
+- github stuff
 
 ## WHAT WE HAVE
 ARTIST
