@@ -102,7 +102,6 @@ async function deezerGetSearch(name) {
   );
   const results = await metadataResponse;
   const results2 = await results.json();
-  //console.log(results2);
   return results2;
 }
 //Search Endpoint getter.
@@ -117,7 +116,6 @@ async function deezerGetArtistByName(name) {
   }
   const mostCommonId = modeString(array);
   const artist = await deezerGetArtistById(mostCommonId);
-  console.log(artist);
   return artist;
 }
 //Read in album names and album covers from Deezer
@@ -126,7 +124,6 @@ async function deezerRenderAlbumsForArtist(name) {
   const artistId = artist.id;
   const artistname = artist.name;
   const searchData = await deezerGetSearch(artistname);
-  console.log(searchData);
   const mapOfAlbums = new Map();
   const limit = Math.max(searchData.data.length, 25);
   for (let i = 0; i < limit; i++) {
@@ -135,7 +132,7 @@ async function deezerRenderAlbumsForArtist(name) {
       mapOfAlbums.set(searchData.data[i].album.title, searchData.data[i].album);
     }
   }
-  console.log(mapOfAlbums);
+  
 //Refresh the album box
   const albumbox = document.getElementById("topalbumsbox");
   albumbox.innerHTML = "";
@@ -245,7 +242,6 @@ async function getArtistInfo(name) {
   descriptionBox.innerHTML = "";
   //Run description function
   ArtistDescription(description);
-  console.log(deezerArtist);
 //Add social media links and names
   const facebooklinkBox = document.getElementById("facebooklink");
   facebooklinkBox.href = "https://www.facebook.com/" + facebook;
@@ -277,7 +273,6 @@ async function getArtistInfo(name) {
     const songpic = topsongs.response.songs[i].song_art_image_url;
 
     const songBox = document.getElementById(titleid);
-    console.log(topsong);
     songBox.innerHTML = topsong;
 
     const linkBox = document.getElementById(linkid);
@@ -298,7 +293,6 @@ async function getArtistByName(name) {
   }
   const mostCommonId = modeString(array);
   const artist = await getArtistById(mostCommonId);
-  console.log(artist);
   return artist;
 }
 //taken from https://stackoverflow.com/questions/1053843/get-the-element-with-the-highest-occurrence-in-an-array
@@ -341,7 +335,6 @@ function ArtistDescription(descriptiontext) {
 }
 //Function to switch the profile picture on click
 function PicSwitch() {
-  console.log("hello");
   const profpicBox = document.getElementById("picture");
   if (profpicBox.src == picList[0]) {
     profpicBox.src = picList[2];
