@@ -1,7 +1,7 @@
 :root {
   --backgroundcolor: #202020;
   --boxcolor: #2F2F2F;
-  --highlightcolor: yellow;
+  --highlightcolor: #FFEC00;
   --textcolor: white;
   --borderradius: 30px;
   --navbarsize: 80px;
@@ -13,8 +13,6 @@ body {
   color: var(--textcolor);
   font-family: futura-pt, sans-serif;
   margin: 0;
-  height: 1000px;
-  overflow: hidden;
 }
 
 p {
@@ -32,21 +30,26 @@ a:visited {
 }
 
 #maindisplay {
-  padding-top: 200px;
-  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
 }
 
 #maintitle {
   width: 600px;
+  line-height: 20px;
   font-size: 60px;
   text-align: center;
-  margin: 0 auto;
 }
 
 #inputholder {
   width: 320px;
-  margin: 0 auto;
-  margin-top: 10px;
 }
 
 #container {
@@ -56,7 +59,6 @@ a:visited {
 
 #mainpagesearch {
   width: 300px;
-  margin: 0 auto;
 }
 
 .headingtext {
@@ -442,7 +444,6 @@ button {
 }
 
 .topsearchdropdown2 {
-  margin: 0 auto;
   margin-top: 15px;
 }
 

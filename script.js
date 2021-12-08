@@ -1,8 +1,10 @@
+//initalize the variable for list of profile pictures
 var picList;
 
+//set up function for search bar
 async function search(text) {
   const artist = await getArtistByName(text);
-  getArtistTop10(text);
+  getArtistInfo(text);
   const mainDisplay = document.getElementById("maindisplay");
   mainDisplay.style.display = "none";
   const navBar = document.getElementById("navbarholder");
@@ -12,17 +14,14 @@ async function search(text) {
   const nicknamebox = document.getElementById("nicknames");
   nicknamebox.innerHTML = "AKA: ";
   deezerRenderAlbumsForArtist(artist.response.artist.name);
-  document.body.style.height = "auto";
-  document.body.style.overflow = "visible";
 }
-
+//set up function to read in the text from the search bar 
 function getSearchBarText(bar) {
   if (event.key === "Enter") {
     search(bar.value);
     bar.value = "";
   }
 }
-
 //Search Endpoint getter.
 //Parameter 'name': String name of artist.
 async function getSearch(name) {
@@ -39,7 +38,6 @@ async function getSearch(name) {
   const results = await metadataResponse.json();
   return results;
 }
-
 //Song Endpoint getter.
 //Parameter 'id': numeric id of song.
 async function getSongById(id) {
@@ -56,7 +54,6 @@ async function getSongById(id) {
   const results = await metadataResponse.json();
   return results;
 }
-
 //Artist Endpoint getter.
 //Parameter 'id': numeric id of artist
 async function getArtistById(id) {
@@ -73,7 +70,6 @@ async function getArtistById(id) {
   const results = await metadataResponse.json();
   return results;
 }
-
 //Artist Songs Endpoint getter. NOTE: returns songs they're featured in or produced as well as wrote
 //Parameter 'id': numeric id of artist.
 async function getArtistSongsById(id) {
@@ -91,7 +87,6 @@ async function getArtistSongsById(id) {
   const results = await metadataResponse.json();
   return results;
 }
-
 //DEEZER GETTERS
 async function deezerGetSearch(name) {
   //const urlName = name.replaceAll(" ", "%20");
@@ -110,10 +105,10 @@ async function deezerGetSearch(name) {
   //console.log(results2);
   return results2;
 }
-
+//Search Endpoint getter.
+//Parameter 'name': String name of artist.
 async function deezerGetArtistByName(name) {
   const data = await deezerGetSearch(name);
-
   const array = [];
   const limit = Math.max(data.data.length, 25);
   for (let i = 0; i < limit; i++) {
@@ -125,8 +120,7 @@ async function deezerGetArtistByName(name) {
   console.log(artist);
   return artist;
 }
-
-//use this by searching with a name you know is good
+//Read in album names and album covers from Deezer
 async function deezerRenderAlbumsForArtist(name) {
   const artist = await deezerGetArtistByName(name);
   const artistId = artist.id;
@@ -142,16 +136,16 @@ async function deezerRenderAlbumsForArtist(name) {
     }
   }
   console.log(mapOfAlbums);
-
+//Refresh the album box
   const albumbox = document.getElementById("topalbumsbox");
   albumbox.innerHTML = "";
-
+//Text for album box
   const relatedalbumstext = document.createElement("p");
   relatedalbumstext.id = "topalbums";
   relatedalbumstext.classList.add("headingtext");
   relatedalbumstext.innerHTML = "popular albums";
   albumbox.appendChild(relatedalbumstext);
-
+//Add songs for album box
   for (let value of mapOfAlbums.values()) {
     const album = document.createElement("div");
     album.classList.add("song");
@@ -170,7 +164,7 @@ async function deezerRenderAlbumsForArtist(name) {
 
   return mapOfAlbums;
 }
-
+//Get artist info and artist info by id
 async function deezerGetArtistById(id) {
   const metadataResponse = await fetch(
     `https://deezerdevs-deezer.p.rapidapi.com/artist/${id}`,
@@ -186,9 +180,8 @@ async function deezerGetArtistById(id) {
   const results2 = await results.json();
   return results2;
 }
-
 //SPECIFIC FUNCTIONS
-
+//Create top searches drop down
 function dropdown() {
   const menu = document.getElementById("dropdown");
   if (menu.style.display == "none") {
@@ -197,7 +190,6 @@ function dropdown() {
     menu.style.display = "none";
   }
 }
-
 function dropdown2() {
   const menu = document.getElementById("dropdown2");
   if (menu.style.display == "none") {
@@ -206,16 +198,16 @@ function dropdown2() {
     menu.style.display = "none";
   }
 }
-
+//Have top searches be clickable
 window.onclick = function(event) {
   if (!event.target.matches("#topsearches")) {
     const menu = document.getElementById("dropdown");
     menu.style.display = "none";
   }
 };
-
-//Gets and displays top 10 songs by named artist
-async function getArtistTop10(name) {
+//Gets and displays artist info on page
+async function getArtistInfo(name) {
+  //intialize variables to put on page
   const artist = await getArtistByName(name);
   const topsongs = await getArtistSongsById(artist.response.artist.id);
   const artistName = artist.response.artist.name;
@@ -227,67 +219,55 @@ async function getArtistTop10(name) {
   const description = artist.response.artist.description.dom.children;
   const profilepic = artist.response.artist.image_url;
   const deezerArtist = await deezerGetArtistByName(artistName);
-
   const profpicBox = document.getElementById("picture");
   profpicBox.src = profilepic;
-
+  //List of possible pictures for page
   picList = [
     artist.response.artist.image_url,
     artist.response.artist.header_image_url,
     deezerArtist.picture_medium
   ];
-
+//Edit artist name
   const nameBox = document.getElementById("artistname");
   nameBox.innerHTML = artistName;
-
+//Edit artist's aliases or nickname
   const limit = Math.min(alias.length, 4);
-
   const nicknameBox = document.getElementById("nicknames");
   for (let i = 0; i < limit; i++) {
     const aliasName = alias[i];
     nicknameBox.innerHTML += aliasName;
-
     if (i < limit - 1) {
       nicknameBox.innerHTML += ", ";
     }
   }
-
+//Edit description
   const descriptionBox = document.getElementById("descriptionbox");
   descriptionBox.innerHTML = "";
+  //Run description function
   ArtistDescription(description);
-
   console.log(deezerArtist);
-
+//Add social media links and names
   const facebooklinkBox = document.getElementById("facebooklink");
   facebooklinkBox.href = "https://www.facebook.com/" + facebook;
-
   const facebookBox = document.getElementById("facebook");
   facebookBox.innerHTML = facebook;
-
   const instalinkBox = document.getElementById("instagramlink");
   instalinkBox.href = "https://www.instagram.com/" + insta + "/";
-
   const instaBox = document.getElementById("instagram");
   instaBox.innerHTML = insta;
-
   const twitterlinkBox = document.getElementById("twitterlink");
   twitterlinkBox.href = "https://twitter.com/" + twitter;
-
   const deezerLinkBox = document.getElementById("deezerlink");
   deezerLinkBox.href = deezerArtist.link;
-
   const twitterBox = document.getElementById("twitter");
   twitterBox.innerHTML = twitter;
-
   const geniuslinkBox = document.getElementById("geniuslink");
   geniuslinkBox.href = genius;
-
   const geniusBox = document.getElementById("genius");
   geniusBox.innerHTML = artistName;
-
   const deezerBox = document.getElementById("deezer");
   deezerBox.innerHTML = artistName;
-
+//Add top 10 songs
   for (let i = 0; i < 10; i++) {
     const titleid = "songtitle" + i;
     const linkid = "songlink" + i;
@@ -307,7 +287,6 @@ async function getArtistTop10(name) {
     picBox.src = songpic;
   }
 }
-
 //Gets an artist by their name, rather than by ID
 async function getArtistByName(name) {
   const data = await getSearch(name);
@@ -322,16 +301,13 @@ async function getArtistByName(name) {
   console.log(artist);
   return artist;
 }
-
 //taken from https://stackoverflow.com/questions/1053843/get-the-element-with-the-highest-occurrence-in-an-array
 //gets the most frequently occuring element in an array.
 function modeString(array) {
   if (array.length == 0) return null;
-
   var modeMap = {},
     maxEl = array[0],
     maxCount = 1;
-
   for (var i = 0; i < array.length; i++) {
     var el = array[i];
 
@@ -348,7 +324,7 @@ function modeString(array) {
   }
   return maxEl;
 }
-
+//Function to pull and format artist's description from API
 function ArtistDescription(descriptiontext) {
   const descriptionBox = document.getElementById("descriptionbox");
   for (let i = 0; i < descriptiontext.length; i++) {
@@ -363,13 +339,11 @@ function ArtistDescription(descriptiontext) {
     }
   }
 }
-
+//Function to switch the profile picture on click
 function PicSwitch() {
   console.log("hello");
   const profpicBox = document.getElementById("picture");
   if (profpicBox.src == picList[0]) {
-    profpicBox.src = picList[1];
-  } else if (profpicBox.src == picList[1]) {
     profpicBox.src = picList[2];
   } else if (profpicBox.src == picList[2]) {
     profpicBox.src = picList[0];
