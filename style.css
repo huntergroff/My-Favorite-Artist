@@ -1,0 +1,458 @@
+:root {
+  --backgroundcolor: #202020;
+  --boxcolor: #2F2F2F;
+  --highlightcolor: #FFEC00;
+  --textcolor: white;
+  --borderradius: 30px;
+  --navbarsize: 80px;
+  --songboxsize: 50px;
+}
+
+body {
+  background-color: var(--backgroundcolor);
+  color: var(--textcolor);
+  font-family: futura-pt, sans-serif;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--textcolor);
+}
+
+a:visited {
+  text-decoration: none;
+  color: var(--textcolor);
+}
+
+#maindisplay {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+}
+
+#maintitle {
+  width: 600px;
+  line-height: 20px;
+  font-size: 60px;
+  text-align: center;
+}
+
+#inputholder {
+  width: 320px;
+}
+
+#container {
+  justify-content: center;
+  visibility: hidden;
+}
+
+#mainpagesearch {
+  width: 300px;
+}
+
+.headingtext {
+  font-size: 90px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#nicknames {
+  font-size: 30px;
+  color: #9F9F9F;
+}
+
+.mfatext {
+  font-size: 40px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in;
+  min-width: 400px;
+}
+
+.mfatext:hover {
+  color: var(--highlightcolor);
+  transition: all 0.2s ease-in;
+}
+
+#topsearches {
+  min-width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.searchbox {
+  font-family: futura-pt, sans-serif;
+  height: 30px;
+  width: 300px;
+  font-size: 15px;
+  color: var(--backgroundcolor);
+  padding-left: 15px;
+  border-radius: var(--borderradius);
+  border-color: var(--backgroundcolor);
+  transition: all 0.2s ease-in;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.searchbox:focus,
+.searchbox:hover {
+  outline: none;
+  background-color: var(--highlightcolor);
+  transition: all 0.2s ease-in;
+}
+
+#navbarholder {
+  width: 100%;
+  height: var(--navbarsize);
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  background-color: var(--backgroundcolor);
+  visibility: hidden;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--navbarsize);
+  width: 900px;
+  position: relative;
+  right: 190px;
+}
+
+#container {
+  display: flex;
+}
+
+#pictureandsocialsbox {
+  /*background-color: red;*/
+  padding-top: var(--navbarsize);
+  width: 350px;
+  min-width: 350px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#artistpicture {
+  display: flex;
+  justify-content: center;
+  background-color: var(--boxcolor);
+  width: 248px;
+  height: 248px;
+  border: 4px solid var(--backgroundcolor);
+  margin: 0 auto;
+  border-radius: 125px;
+  margin-top: 18px;
+  overflow: hidden;
+  transition: all 0.2s ease-in;
+}
+
+#artistpicture:hover {
+  border: 4px solid var(--highlightcolor);
+  transition: all 0.2s ease-in;
+}
+
+#picture {
+  height: 100%;
+}
+
+#artistsociallinks {
+  background-color: var(--boxcolor);
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: var(--borderradius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+.sociallink {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  transition: all 0.2s ease-in;
+}
+
+.sociallink:hover {
+  background-color: var(--highlightcolor);
+  transition: all 0.2s ease-in;
+  color: var(--backgroundcolor);
+}
+
+.socialicon {
+  width: 30px;
+  margin-right: 8px;
+  margin-left: 20px;
+}
+
+#namedsecriptionsongsbox {
+  /*background-color: yellow;*/
+  display: flex;
+  flex-direction: column;
+}
+
+#namebox {
+  /*background-color: darkgreen;*/
+  padding-top: var(--navbarsize);
+}
+
+#descriptionsongsbox {
+  margin: 0;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 1000px;
+  min-width: 700px;
+  height: 800px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+}
+
+#descriptionbox {
+  background-color: var(--boxcolor);
+  width: 700px;
+  height: 340px;
+  margin-bottom: 50px;
+  padding: 25px;
+  border-radius: var(--borderradius);
+  overflow-y: scroll;
+}
+
+#songandalbumsbox {
+  display: flex;
+  justify-content: flex-start;
+  height: 365px;
+  margin-bottom: 50px;
+}
+
+#topsongsbox,
+#topalbumsbox {
+  background-color: var(--boxcolor);
+  width: 300px;
+  min-width: 300px;
+  border-radius: var(--borderradius);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+}
+
+#topalbumsbox {
+  margin-left: 50px;
+}
+
+#topsongs,
+#topalbums {
+  font-size: 30px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.song {
+  display: flex;
+  align-items: flex-start;
+  min-height: var(--songboxsize);
+  height: auto;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in;
+}
+
+.songpicture {
+  height: var(--songboxsize);
+  width: var(--songboxsize);
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+a:hover .song {
+  background-color: var(--highlightcolor);
+  transition: all 0.2s ease-in;
+  color: var(--backgroundcolor);
+}
+
+/* width */
+#topsongsbox::-webkit-scrollbar {
+  display: none;
+}
+
+#topalbumsbox::-webkit-scrollbar {
+  display: none;
+}
+
+#descriptionbox::-webkit-scrollbar {
+  display: none;
+}
+
+@media only screen and (max-width: 1350px) {
+  #container {
+    flex-direction: column;
+    margin-left: 50px;
+  }
+
+  #pictureandsocialsbox {
+    flex-direction: row;
+    width: 550px;
+    height: 250px;
+    justify-content: left;
+  }
+
+  #artistpicture {
+    margin: 0;
+    margin-top: 18px;
+    margin-right: 50px;
+  }
+
+  #artistsociallinks {
+    margin-top: 18px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  #navbarholder {
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    background-color: var(--backgroundcolor);
+  }
+
+  #navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--navbarsize);
+    width: 900px;
+    position: relative;
+    right: 0px;
+    padding-right: 100px;
+    min-width: 800px;
+    margin-left: 50px;
+  }
+
+  #namebox {
+    padding-top: 40px;
+    line-height: 90px;
+  }
+
+  #nicknames {
+    line-height: 50px;
+    font-size: 23px;
+  }
+
+  #descriptionsongsbox {
+    width: auto;
+  }
+
+  #descriptionbox {
+    width: auto;
+    max-width: 850px;
+    margin-right: 50px;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  #navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+
+  :root {
+    --navbarsize: 130px;
+  }
+
+  .mfatext {
+    position: relative;
+    top: 7px;
+  }
+
+  #search {
+    position: relative;
+    right: 8px;
+    top: 6px;
+  }
+
+  #topsearches {
+    position: relative;
+    bottom: 30px;
+    left: 430px;
+  }
+
+  #dropdown {
+    position: relative;
+    bottom: 65px;
+    left: 570px;
+  }
+}
+
+#dropdown,
+#dropdown2 {
+  background-color: var(--boxcolor);
+  width: 120px;
+  height: 240px;
+  margin: 0 auto;
+  border-radius: var(--borderradius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  display: none;
+  margin-left: 10px;
+  padding: 15px;
+  line-height: 30px;
+  box-shadow: 0px 0px 30px var(--backgroundcolor);
+}
+
+button {
+  font-family: futura-pt, sans-serif;
+  color: var(--textcolor);
+  background: none;
+  margin-bottom: 10px;
+  border: none;
+  font-size: 17px;
+  border-radius: 20px;
+  padding-left,padding-right: 5px;
+  transition: all 0.2s ease-in;
+}
+
+.topsearchdropdown,
+.topsearchdropdown2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 130px;
+  height: 30px;
+}
+
+.topsearchdropdown2 {
+  margin-top: 15px;
+}
+
+#dropdown2 {
+  position: relative;
+  right: 18px;
+}
+
+button:hover {
+  color: var(--highlightcolor);
+  transition: all 0.2s ease-in;
+}
